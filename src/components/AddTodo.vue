@@ -16,7 +16,8 @@ export default {
   },
   methods:{
     addTodo(text){
-      this.newTodo ? this.$emit("add-todo", text) : {};
+      this.newTodo && this.$emit("add-todo", text);
+      this.$emit('add-muuri-item');
       this.newTodo = '';
     },
   },

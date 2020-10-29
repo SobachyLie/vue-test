@@ -1,7 +1,7 @@
 <template>
   <div>
-    <AddTodo @add-todo="addTodo"/>
-    <ToDoList v-bind:todos="todos" @delete-todo="deleteTodo"/>
+    <AddTodo @add-muuri-item="addMuuriItem" @add-todo="addTodo"/>
+    <ToDoList ref="ToDoList" v-bind:todos="todos" @delete-todo="deleteTodo"/>
   </div>
 </template>
 
@@ -10,10 +10,10 @@ import ToDoList from "@/components/ToDoList";
 import AddTodo from "@/components/AddTodo";
 
 export default {
-name: "List",
+  name: "List",
   data(){
     return{
-      todos:["ремонт", "покупки", "бубки"]
+      todos:["ремонт", "покупки", "бубки", "123", "sfa", "kh", "7687", "zvz", "FHFHFF"]
     }
   },
   components: {
@@ -26,10 +26,12 @@ name: "List",
     },
     addTodo(text){
       this.todos.push(text);
-    }
+    },
+    addMuuriItem(){
+      this.$refs.ToDoList.addMuuriItem();
+      console.log(this.todos)
+    },
   },
-  created: function () {
-  }
 }
 </script>
 
