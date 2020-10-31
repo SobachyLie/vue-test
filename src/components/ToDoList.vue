@@ -11,72 +11,68 @@
 <!--    </li>-->
 <!--  </ul>-->
 
-  <div class="grid">
-
-    <div v-for="(todo, index) in todos" :key="index" class="item">
-      <div class="item-content">
-        {{ `${index+1}: ${todo}` }}
-        <div @click="deleteTodo(index)" class="btn btn-danger">удалить</div>
-      </div>
-    </div>
-
-  </div>
+  <muuri-grid ref="muuriGrid" id="example-grid" @add="add" @move="move"  @layoutEnd="updateOrder">
+    <item-sm  :id="index" v-for="(todo, index) in todos" :key="index">
+      <p>{{ todo.id }}) {{ todo.title }}</p>
+      <p>{{ todo.description }}</p>
+    </item-sm>
+  </muuri-grid>
 
 </template>
 
 <script>
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import Muuri from 'muuri';
-import 'web-animations-js';
+import 'web-animations-js'
+import MuuriGrid from "@/components/MuuriGrid";
+import ItemSm from "@/components/items/ItemSm";
 
 export default {
   name: "ToDoList",
   props: ['todos'],
   data(){
     return{
-      toDoListMuuri: "",
+      newTodos: this.$props.todos,
     }
   },
-  mounted() {
-    this.toDoListMuuri = new Muuri('.grid', {
-      dragEnabled: true,
-      items: document.querySelectorAll('.item'),
-    });
+  components:{
+    ItemSm,
+    MuuriGrid,
   },
   methods: {
     deleteTodo(index){
-      this.$emit('delete-todo', index)
-      console.log(index, 'pre', this.todos);
-      setTimeout(() => {
-        this.removeMuuriItem(index);
-        this.toDoListMuuri.refreshItems();
-      }, 0);
+      this.$emit('delete-todo', index);
     },
-    addMuuriItem(){
-      let newElems = '';
-      setTimeout(() => {
-        newElems = document.querySelectorAll('.grid > .item:last-child');
-        this.toDoListMuuri.add(newElems);
-      }, 0);
+    refreshGrid(){
+      this.$refs.muuriGrid.add(document.getElementsByClassName('item:last-child'))
     },
-    removeMuuriItem(index){
-      // let delElems = document.querySelectorAll(`.grid > .item:nth-child(${index+1})`);
-      // this.toDoListMuuri.remove(delElems);
-      this.toDoListMuuri.refreshItems();
-      console.log(index, 'after', this.todos);
-      if(index === this.todos.length){
-        console.log(123321,document.querySelector(`.grid > .item:nth-child(${index+1})`));
-        document.querySelector(`.grid > .item:nth-child(${index+1})`).remove();
-      }
-    }
-  },
+    move(data){
+      console.log(data);
+    },
+    add(data){
+      console.log(data);
+    },
+    updateOrder (items) {
+      console.log(items);
 
+      // this.$emit('update-todos', items);
+    },
+    addItem (){
+      // let newElems = generateElements(5);
+      // newElems.forEach(function (item) {
+      //   item.style.display = 'none';
+      // });
+      // var newItems = grid.add(newElems);
+    },
+  },
 }
+
+
+
 </script>
 
 <style scoped>
-.grid {
+.muuri-grid {
   position: relative;
 }
 .item {

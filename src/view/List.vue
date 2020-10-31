@@ -1,7 +1,7 @@
 <template>
   <div>
-    <AddTodo @add-muuri-item="addMuuriItem" @add-todo="addTodo"/>
-    <ToDoList ref="ToDoList" v-bind:todos="todos" @delete-todo="deleteTodo"/>
+    <AddTodo  @add-todo="addTodo"/>
+    <ToDoList ref='ToDoList' @update-todos="updateTodos" v-bind:todos="todos" @delete-todo="deleteTodo"/>
   </div>
 </template>
 
@@ -13,7 +13,11 @@ export default {
   name: "List",
   data(){
     return{
-      todos:["ремонт", "покупки", "бубки", "123", "sfa", "kh", "7687", "zvz", "FHFHFF"]
+      todos:[
+        {title:'Уборка', description: "убрать всю хату", id: 1},
+        {title:'ремонт', description: "ремонт гаража", id: 2},
+        {title:'бубки', description: "поиграть в нарды", id: 3},
+      ]
     }
   },
   components: {
@@ -25,11 +29,15 @@ export default {
       this.todos.splice(index, 1);
     },
     addTodo(text){
+      let id = Math.max.apply(Math, this.todos.map(function(o) { return o.id; }))+1;
+      text = {title: text, description:"none", id: id};
       this.todos.push(text);
+      this.updateTodos(this.todos);
     },
-    addMuuriItem(){
-      this.$refs.ToDoList.addMuuriItem();
-      console.log(this.todos)
+    updateTodos(arr){
+        this.todos = arr;
+        this.$refs.ToDoList.refreshGrid();
+        console.log('todos = newArr', this.todos);
     },
   },
 }

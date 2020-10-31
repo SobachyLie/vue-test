@@ -29,7 +29,7 @@
       },
       onClick: {
         type: Function,
-        default (id) {
+        default () {
           return null
         }
       }

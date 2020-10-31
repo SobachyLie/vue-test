@@ -5,7 +5,7 @@
       'max-width': width,
       'height': height
     }">
-    <div class="item-content item-lg">
+    <div class="item-content item-md">
       <slot></slot>
     </div>
   </div>
@@ -13,23 +13,23 @@
 
 <script>
   export default {
-    name: 'item-lg',
+    name: 'item-md',
     props: {
       id: {
         type: [Number, String],
-        default: 'item-lg'
+        default: 'item-md'
       },
       width: {
         type: String,
-        default: '620px'
+        default: '410px'
       },
       height: {
         type: String,
-        default: '620px'
+        default: '410px'
       },
       onClick: {
         type: Function,
-        default (id) {
+        default () {
           return null
         }
       }

@@ -48,17 +48,17 @@
     methods: {
       createGrid () {
         this.grid = new Muuri('#' + this.id, this.options)
-        self.$emit('gridCreated', this.grid)
+        self.$emit('grid-created', this.grid)
       },
       eventListening () {
         this.grid.on('synchronize', function () {
           self.$emit('synchronize')
         })
         this.grid.on('layoutStart', function (items) {
-          self.$emit('layoutStart', items)
+          self.$emit('layout-start', items)
         })
         this.grid.on('layoutEnd', function (items) {
-          self.$emit('layoutEnd', items)
+          self.$emit('layout-end', items)
         })
         this.grid.on('add', function (items) {
           self.$emit('add', items)
@@ -67,16 +67,16 @@
           self.$emit('remove', indices)
         })
         this.grid.on('showStart', function (items) {
-          self.$emit('showStart', items)
+          self.$emit('show-start', items)
         })
         this.grid.on('showEnd', function (items) {
-          self.$emit('showEnd', items)
+          self.$emit('show-end', items)
         })
         this.grid.on('hideStart', function (items) {
-          self.$emit('hideStart', items)
+          self.$emit('hide-start', items)
         })
         this.grid.on('hideEnd', function (items) {
-          self.$emit('hideEnd', items)
+          self.$emit('hide-layout-end', items)
         })
         this.grid.on('filter', function (shownItems, hiddenItems) {
           self.$emit('filter', shownItems, hiddenItems)
@@ -91,34 +91,34 @@
           self.$emit('send', data)
         })
         this.grid.on('beforeSend', function (data) {
-          self.$emit('beforeSend', data)
+          self.$emit('before-send', data)
         })
         this.grid.on('receive', function (data) {
           self.$emit('receive', data)
         })
         this.grid.on('beforeReceive', function (data) {
-          self.$emit('beforeReceive', data)
+          self.$emit('before-receive', data)
         }),
         this.grid.on('dragInit', function (item, event) {
-          self.$emit('dragInit', item, event)
+          self.$emit('drag-init', item, event)
         }),
         this.grid.on('dragStart', function (item, event) {
-          self.$emit('dragStart', item, event)
+          self.$emit('drag-start', item, event)
         })
         this.grid.on('dragMove', function (item, event) {
-          self.$emit('dragMove', item, event)
+          self.$emit('drag-move', item, event)
         })
         this.grid.on('dragScroll', function (item, event) {
-          self.$emit('dragScroll', item, event)
+          self.$emit('drag-scroll', item, event)
         })
         this.grid.on('dragEnd', function (item, event) {
-          self.$emit('dragEnd', item, event)
+          self.$emit('drag-end', item, event)
         })
         this.grid.on('dragReleaseStart', function (item) {
-          self.$emit('dragReleaseStart', item)
+          self.$emit('drag-release-start', item)
         })
         this.grid.on('dragReleaseEnd', function (item) {
-          self.$emit('dragReleaseEnd', item)
+          self.$emit('drag-release-end', item)
         })
         this.grid.on('destroy', function () {
           self.$emit('destroy')
